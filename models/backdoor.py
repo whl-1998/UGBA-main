@@ -131,8 +131,8 @@ class Backdoor:
         edge_list = []
         for idx in idx_attach:
             edges = self.trigger_index.clone()
-            edges[0, 0] = idx
-            edges[1, 0] = start
+            edges[0, 0] = idx  # 感染节点 id
+            edges[1, 0] = start  # 触发器节点 start_id
             edges[:, 1:] = edges[:, 1:] + start
 
             edge_list.append(edges)

@@ -158,7 +158,7 @@ for seed in seeds:
     # In[10]:
     # train trigger generator 
     model = Backdoor(args,device)
-    model.fit(data.x, train_edge_index, None, data.y, idx_train,idx_attach, unlabeled_idx)
+    model.fit(data.x, train_edge_index, None, data.y, idx_train, idx_attach, unlabeled_idx)
     poison_x, poison_edge_index, poison_edge_weights, poison_labels = model.get_poisoned()
 
     if(args.defense_mode == 'prune'):

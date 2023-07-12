@@ -137,20 +137,10 @@ from sklearn.cluster import KMeans
 def cluster_distance_selection(args, data, idx_train, idx_val, idx_clean_test,
                                unlabeled_idx, train_edge_index, size, device):
 
-    encoder_modelpath = './modelpath/{}_{}_benign.pth'.format('GCN_Encoder', args.dataset)
-    if os.path.exists(encoder_modelpath):
-        # load existing benign model
-        gcn_encoder = torch.load(encoder_modelpath)
-        gcn_encoder = gcn_encoder.to(device)
-        # edge_weights = torch.ones([data.edge_index.shape[1]], device=device, dtype=torch.float)
-        print("Loading {} encoder Finished!".format(args.model))
-    else:
-        gcn_encoder = model_construct(args, 'GCN_Encoder', data, device).to(device)
-        t_total = time.time()
-        print("Length of training set: {}".format(len(idx_train)))
-        gcn_encoder.fit(data.x, train_edge_index, None, data.y, idx_train, idx_val, train_iters=args.epochs, verbose=True)
-        print("Training encoder Finished!")
-        print("Total time elapsed: {:.4f}s".format(time.time() - t_total))
+    gcn_encoder = model_construct(args, 'GCN_Encoder', data, device).to(device)
+    print("Length of training set: {}".format(len(idx_train)))
+    gcn_encoder.fit(data.x, train_edge_index, None, data.y, idx_train, idx_val, train_iters=args.epochs, verbose=True)
+    print("Training encoder Finished!")
     # test gcn encoder 
     encoder_clean_test_ca = gcn_encoder.test(data.x, data.edge_index, None, data.y, idx_clean_test)
     print("Encoder CA on clean test nodes: {:.4f}".format(encoder_clean_test_ca))

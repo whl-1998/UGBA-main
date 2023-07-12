@@ -42,7 +42,7 @@ class GCN(nn.Module):
             x = self.lns[0](x)
         i=0
         for conv in self.convs:
-            x = F.relu(conv(x, edge_index,edge_weight))
+            x = F.relu(conv(x, edge_index, edge_weight))
             if self.use_ln:
                 x = self.lns[i+1](x)
             i+=1

@@ -82,6 +82,7 @@ def subgraph(subset, edge_index):
 
 
 # 我们会在测试集中选一半作为 attack-set，另一半作为 clean test-set
+# todo: 修改回随机筛选
 def get_split(args, data, device):
     random_state = np.random.RandomState(args.seed)
     # perm = random_state.permutation(data.num_nodes)  # get random idx of nodes
